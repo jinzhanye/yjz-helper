@@ -62,3 +62,43 @@ test('stringify URL with a query string', () => {
     query: { foo: 'bar' }
   })).toEqual('https://foo.bar?foo=bar')
 });
+
+test('stringify URL with a query string encode', () => {
+  expect(queryString.stringifyUrl({
+    url: 'https://foo.bar',
+    query: {
+      scene: 'id=897SDFJKLJ',
+      foo: 'bar',
+    }
+  })).toEqual('https://foo.bar?scene=id%3D897SDFJKLJ&foo=bar')
+
+  expect(queryString.stringifyUrl({
+    url: 'https://foo.bar',
+    query: {
+      scene: 'id=897SDFJKLJ',
+      foo: 'bar',
+    }
+  }, {
+    encode: false,
+  })).toEqual('https://foo.bar?scene=id=897SDFJKLJ&foo=bar')
+});
+
+test('stringify URL from the result of `parseUrl` without query string', () => {
+  const url = 'https://foo.bar';
+  expect(queryString.stringifyUrl(queryString.parseUrl(url))).toBe(url)
+});
+
+test('stringify URL from the result of `parseUrl` with query string', () => {
+  const url = 'https://foo.bar?foo=bar&foo=baz';
+  expect(queryString.stringifyUrl(queryString.parseUrl(url))).toBe(url)
+});
+
+test('stringify URL from the result of `parseUrl` with query string that contains `=`', () => {
+  const url = 'https://foo.bar?foo=bar=&foo=baz=';
+  expect(
+    queryString.stringifyUrl(
+      queryString.parseUrl(url),
+      { encode: false })
+  ).toBe(url)
+});
+

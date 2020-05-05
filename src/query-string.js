@@ -1,7 +1,9 @@
-import { parse as qsParse, stringify } from 'querystring'
+import { parse as qsParse, stringify, escape, unescape } from 'querystring'
 import { parse as urlParse } from 'url'
 
 // import _ from 'lodash'
+
+const getSelf = (str) => str
 
 function removeHash(input) {
   const hashStart = input.indexOf('#');
@@ -22,10 +24,12 @@ function getHash(url) {
   return hash;
 }
 
-export function parseUrl(input, options = { encode: true }) {
+export function parseUrl(input, options = { decode: true }) {
   const url = removeHash(input).split('?')[0] || ''
   const urlObject = urlParse(input)
-  const query = qsParse(urlObject.query)
+  const query = qsParse(urlObject.query, null, null, {
+    decodeURIComponent: options.decode ? unescape : getSelf
+  })
 
   return {
     url,
@@ -41,7 +45,9 @@ export function stringifyUrl(input = {}, options = { encode: true }) {
     Object.assign({}, query, input.query),
     null,
     null,
-    options.encode
+    {
+      encodeURIComponent: options.encode ? escape : getSelf,
+    }
   );
 
   if (queryString) {
