@@ -67,6 +67,22 @@ test('parseUrl with a query string decode', () => {
     })
 
 
+  const temp = queryString.parseUrl('https://foo.bar?scene=id%3D897SDFJKLJ%26age%3D88&foo=bar')
+  expect(temp)
+    .toEqual({
+      url: 'https://foo.bar',
+      query: {
+        scene: 'id=897SDFJKLJ&age=88',
+        foo: 'bar',
+      }
+    })
+
+  expect(queryString.parse(temp.query.scene))
+    .toEqual({
+      id: '897SDFJKLJ',
+      age: '88'
+    })
+
   expect(
     queryString.parseUrl(
       'https://foo.bar?scene=id%3D5bce88129d5cd50006b28dae&foo=bar',

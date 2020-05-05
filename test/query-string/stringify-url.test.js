@@ -67,20 +67,20 @@ test('stringify URL with a query string encode', () => {
   expect(queryString.stringifyUrl({
     url: 'https://foo.bar',
     query: {
-      scene: 'id=897SDFJKLJ',
+      scene: 'id=897SDFJKLJ&age=88',
       foo: 'bar',
     }
-  })).toEqual('https://foo.bar?scene=id%3D897SDFJKLJ&foo=bar')
+  })).toEqual('https://foo.bar?scene=id%3D897SDFJKLJ%26age%3D88&foo=bar')
 
   expect(queryString.stringifyUrl({
     url: 'https://foo.bar',
     query: {
-      scene: 'id=897SDFJKLJ',
+      scene: 'id=897SDFJKLJ&age=88',
       foo: 'bar',
     }
   }, {
     encode: false,
-  })).toEqual('https://foo.bar?scene=id=897SDFJKLJ&foo=bar')
+  })).toEqual('https://foo.bar?scene=id=897SDFJKLJ&age=88&foo=bar')
 });
 
 test('stringify URL from the result of `parseUrl` without query string', () => {
