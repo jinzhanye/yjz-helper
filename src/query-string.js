@@ -1,5 +1,6 @@
-import { parse as qsParse } from 'querystring'
+import { parse as qsParse, stringify } from 'querystring'
 import { parse as urlParse } from 'url'
+
 // import _ from 'lodash'
 
 function removeHash(input) {
@@ -11,10 +12,19 @@ function removeHash(input) {
   return input;
 }
 
-export function parseUrl(input, options) {
-  const urlObject = urlParse(input)
+function getHash(url) {
+  let hash = '';
+  const hashStart = url.indexOf('#');
+  if (hashStart !== -1) {
+    hash = url.slice(hashStart);
+  }
 
+  return hash;
+}
+
+export function parseUrl(input, options = { encode: true }) {
   const url = removeHash(input).split('?')[0] || ''
+  const urlObject = urlParse(input)
   const query = qsParse(urlObject.query)
 
   return {
@@ -23,12 +33,20 @@ export function parseUrl(input, options) {
   }
 }
 
-// export function stringfyUrl(url, encode = true) {
-//   // const urlObject = URL.parse(url)
-//   // urlObject.query = QS.parse(urlObject.query)
-//   // urlObject.search = null
-//
-//
-//
-//   return [1,2,3].includes(1) ? Promise.resolve() : ''
-// }
+export function stringifyUrl(input = {}, options = { encode: true }) {
+  const { url, query } = parseUrl(input.url)
+  const hash = getHash(input.url)
+
+  let queryString = stringify(
+    Object.assign({}, query, input.query),
+    null,
+    null,
+    options.encode
+  );
+
+  if (queryString) {
+    queryString = `?${queryString}`;
+  }
+
+  return `${url}${queryString}${hash}`;
+}

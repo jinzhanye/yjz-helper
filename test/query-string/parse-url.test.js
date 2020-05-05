@@ -1,4 +1,4 @@
-const queryString = require('../src/query-string')
+const queryString = require('../../src/query-string')
 
 test('handles strings with query string', () => {
   expect(queryString.parseUrl('https://foo.bar#top?foo=bar'))
