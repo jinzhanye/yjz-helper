@@ -1,45 +1,56 @@
-const queryString = require( '../src/query-string')
+const queryString = require('../src/query-string')
 
 test('handles strings with query string', () => {
-  // t.deepEqual(queryString.parseUrl('https://foo.bar#top?foo=bar'), { url: 'https://foo.bar', query: {} });
+  expect(queryString.parseUrl('https://foo.bar#top?foo=bar'))
+    .toEqual({
+      url: 'https://foo.bar',
+      query: {}
+    })
 
-  // t.deepEqual(queryString.parseUrl('https://foo.bar?foo=bar&foo=baz#top'), {
-  //   url: 'https://foo.bar',
-  //   query: { foo: ['bar', 'baz'] }
-  // });
+  expect(queryString.parseUrl('https://foo.bar?foo=bar&foo=baz#top'))
+    .toEqual({
+      url: 'https://foo.bar',
+      query: {
+        foo: ['bar', 'baz']
+      }
+    })
 
-  const n = null;
-  expect(n).toBeNull();
-
-  // expect(queryString.parseUrl('https://foo.bar?foo=bar&foo=baz#top'))
-  //   .toBe({
-  //     url: 'https://foo.bar',
-  //     query: { foo: ['bar', 'baz'] }
-  //   })
-
-  // t.deepEqual(queryString.parseUrl('https://foo.bar?foo=bar&foo=baz'), {
-  //   url: 'https://foo.bar',
-  //   query: { foo: ['bar', 'baz'] }
-  // });
+  expect(queryString.parseUrl('https://foo.bar?foo=bar&foo=baz'))
+    .toEqual({
+      url: 'https://foo.bar',
+      query: {
+        foo: ['bar', 'baz']
+      }
+    })
 });
-//
-// test('handles strings not containing query string', t => {
-//   t.deepEqual(queryString.parseUrl('https://foo.bar/'), {url: 'https://foo.bar/', query: {}});
-//   t.deepEqual(queryString.parseUrl('https://foo.bar/#top'), {url: 'https://foo.bar/', query: {}});
-//   t.deepEqual(queryString.parseUrl(''), {url: '', query: {}});
-// });
-//
-// test('handles strings with query string that contain =', t => {
-//   t.deepEqual(queryString.parseUrl('https://foo.bar?foo=baz=bar&foo=baz#top'), {url: 'https://foo.bar', query: {foo: ['baz=bar', 'baz']}});
-//   t.deepEqual(queryString.parseUrl('https://foo.bar?foo=bar=&foo=baz='), {url: 'https://foo.bar', query: {foo: ['bar=', 'baz=']}});
-// });
-//
-// test('throws for invalid values', t => {
-//   t.throws(() => {
-//     queryString.parseUrl(null);
-//   }, TypeError);
-//
-//   t.throws(() => {
-//     queryString.parseUrl(undefined);
-//   }, TypeError);
-// });
+
+test('handles strings not containing query string', () => {
+  expect(queryString.parseUrl('https://foo.bar/')).toEqual({
+    url: 'https://foo.bar/',
+    query: {}
+  });
+
+  expect(queryString.parseUrl('https://foo.bar/#top')).toEqual({
+    url: 'https://foo.bar/',
+    query: {}
+  });
+
+  expect(queryString.parseUrl('')).toEqual({
+    url: '',
+    query: {}
+  });
+});
+
+test('handles strings with query string that contain =', () => {
+  expect(queryString.parseUrl('https://foo.bar?foo=baz=bar&foo=baz#top')).toEqual({
+    url: 'https://foo.bar',
+    query: {
+      foo: ['baz=bar', 'baz']
+    }
+  });
+
+  expect(queryString.parseUrl('https://foo.bar?foo=bar=&foo=baz=')).toEqual({
+    url: 'https://foo.bar',
+    query: {foo: ['bar=', 'baz=']}});
+});
+

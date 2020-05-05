@@ -1,12 +1,26 @@
 import { parse as qsParse } from 'querystring'
 import { parse as urlParse } from 'url'
+// import _ from 'lodash'
 
-export function parseUrl(url, encode = true) {
-  const urlObject = urlParse(url)
-  urlObject.query = qsParse(urlObject.query)
-  urlObject.search = null
+function removeHash(input) {
+  const hashStart = input.indexOf('#');
+  if (hashStart !== -1) {
+    input = input.slice(0, hashStart);
+  }
 
-  return urlObject
+  return input;
+}
+
+export function parseUrl(input, options) {
+  const urlObject = urlParse(input)
+
+  const url = removeHash(input).split('?')[0] || ''
+  const query = qsParse(urlObject.query)
+
+  return {
+    url,
+    query,
+  }
 }
 
 // export function stringfyUrl(url, encode = true) {
