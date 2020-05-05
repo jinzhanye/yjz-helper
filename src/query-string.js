@@ -9,12 +9,12 @@ export function parseUrl(url, encode = true) {
   return urlObject
 }
 
-export function stringfyUrl(url, encode = true) {
-  // const urlObject = URL.parse(url)
-  // urlObject.query = QS.parse(urlObject.query)
-  // urlObject.search = null
-
-
-
-  return [1,2,3].includes(1) ? Promise.resolve() : ''
-}
+// export function stringfyUrl(url, encode = true) {
+//   // const urlObject = URL.parse(url)
+//   // urlObject.query = QS.parse(urlObject.query)
+//   // urlObject.search = null
+//
+//
+//
+//   return [1,2,3].includes(1) ? Promise.resolve() : ''
+// }
