@@ -63,9 +63,6 @@ run/
 .DS_Store
 *.swp
 
-# Nuxt
-app/public/nuxt
-
 # Project
 /config/local.js
 
