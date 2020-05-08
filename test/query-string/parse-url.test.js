@@ -7,21 +7,22 @@ test('handles strings with query string', () => {
       query: {}
     })
 
-  expect(queryString.parseUrl('https://foo.bar?foo=bar&foo=baz#top'))
-    .toEqual({
-      url: 'https://foo.bar',
-      query: {
-        foo: ['bar', 'baz']
-      }
-    })
+  // *** 不支持数组参数 ***
+  // expect(queryString.parseUrl('https://foo.bar?foo=bar&foo=baz#top'))
+  //   .toEqual({
+  //     url: 'https://foo.bar',
+  //     query: {
+  //       foo: ['bar', 'baz']
+  //     }
+  //   })
 
-  expect(queryString.parseUrl('https://foo.bar?foo=bar&foo=baz'))
-    .toEqual({
-      url: 'https://foo.bar',
-      query: {
-        foo: ['bar', 'baz']
-      }
-    })
+  // expect(queryString.parseUrl('https://foo.bar?foo=bar&foo=baz'))
+  //   .toEqual({
+  //     url: 'https://foo.bar',
+  //     query: {
+  //       foo: ['bar', 'baz']
+  //     }
+  //   })
 });
 
 test('handles strings not containing query string', () => {
@@ -41,19 +42,20 @@ test('handles strings not containing query string', () => {
   });
 });
 
-test('handles strings with query string that contain =', () => {
-  expect(queryString.parseUrl('https://foo.bar?foo=baz=bar&foo=baz#top')).toEqual({
-    url: 'https://foo.bar',
-    query: {
-      foo: ['baz=bar', 'baz']
-    }
-  });
-
-  expect(queryString.parseUrl('https://foo.bar?foo=bar=&foo=baz=')).toEqual({
-    url: 'https://foo.bar',
-    query: { foo: ['bar=', 'baz='] }
-  });
-});
+// *** 不支持数组参数 ***
+// test('handles strings with query string that contain =', () => {
+//   expect(queryString.parseUrl('https://foo.bar?foo=baz=bar&foo=baz#top')).toEqual({
+//     url: 'https://foo.bar',
+//     query: {
+//       foo: ['baz=bar', 'baz']
+//     }
+//   });
+//
+//   expect(queryString.parseUrl('https://foo.bar?foo=bar=&foo=baz=')).toEqual({
+//     url: 'https://foo.bar',
+//     query: { foo: ['bar=', 'baz='] }
+//   });
+// });
 
 
 test('parseUrl with a query string decode', () => {

@@ -1,4 +1,3 @@
-import nodePolyfills from 'rollup-plugin-node-polyfills'
 import multi from '@rollup/plugin-multi-entry'
 import resolve from '@rollup/plugin-node-resolve'
 import babel from 'rollup-plugin-babel'
@@ -13,7 +12,6 @@ export default {
   plugins: [
     resolve(),
     multi(),
-    nodePolyfills(),
     commonjs({
       include: 'node_modules/**',
     }),
@@ -21,6 +19,10 @@ export default {
       exclude: 'node_modules/**',
       runtimeHelpers: true,
     }),
+  ],
+  external: [
+    'querystring',
+    'url',
   ],
 }
 

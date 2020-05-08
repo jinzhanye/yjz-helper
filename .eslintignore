@@ -65,7 +65,7 @@ run/
 
 # Project
 /config/local.js
-
+lib
 test
 
 app/public

@@ -18,10 +18,11 @@ test('query strings normal', () => {
       foo: 'bar'
     })
 
-  expect(queryString.parse('&foo=bar&foo=baz'))
-    .toEqual({
-      foo: ['bar', 'baz']
-    })
+  // *** 不支持数组参数 ***
+  // expect(queryString.parse('&foo=bar&foo=baz'))
+  //   .toEqual({
+  //     foo: ['bar', 'baz']
+  //   })
 
   expect(queryString.parse('foo=bar&key=val'))
     .toEqual({
@@ -37,9 +38,11 @@ test('query strings decode', () => {
       foo: 'bar',
     })
 
-  // expect(queryString.parse('id%3D3D5bce88129d5cd50006b28dae%26age%3D99'))
-  //   .toEqual({
-  //     id: '5bce88129d5cd50006b28dae',
-  //     age: '99',
-  //   })
+  expect(queryString.parse('scene=id%3D5bce88129d5cd50006b28dae&foo=bar', {
+    decode: false,
+  }))
+    .toEqual({
+      scene: 'id%3D5bce88129d5cd50006b28dae',
+      foo: 'bar',
+    })
 });
