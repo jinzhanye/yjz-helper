@@ -26,3 +26,5 @@ export default {
   ],
 }
 
+/* 发布参考
+https://github.com/rollup/rollup-starter-lib/blob/master/package.json*/
