@@ -45,4 +45,10 @@ test('query strings decode', () => {
       scene: 'id%3D5bce88129d5cd50006b28dae',
       foo: 'bar',
     })
+
+  expect(queryString.parse('scene=id%3D5bce88129d5cd50006b28dae&foo=bar', false))
+    .toEqual({
+      scene: 'id%3D5bce88129d5cd50006b28dae',
+      foo: 'bar',
+    })
 });

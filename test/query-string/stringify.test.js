@@ -11,12 +11,15 @@ test('stringify', () => {
     .toBe('foo=bar&bar=baz')
 });
 
+test('URI encode', () => {
+  expect(queryString.stringify({ 'scene': 'id=AE86' })).toBe('scene=id%3DAE86')
+
+  expect(queryString.stringify({ 'scene': 'id=AE86' }, { encode: false })).toBe('scene=id=AE86')
+
+  expect(queryString.stringify({ 'scene': 'id=AE86' }, false)).toBe('scene=id=AE86')
+});
 
 // *** 不支持数组参数 ***
-// test('URI encode', () => {
-//   expect(queryString.stringify({ 'foo bar': 'baz faz' })).toBe('foo%20bar=baz%20faz')
-// });
-
 // test('no encode', () => {
 //   expect(queryString.stringify(
 //     { 'foo bar': 'baz faz' },

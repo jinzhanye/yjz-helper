@@ -98,4 +98,16 @@ test('parseUrl with a query string decode', () => {
       foo: 'bar',
     }
   })
+
+  expect(
+    queryString.parseUrl(
+      'https://foo.bar?scene=id%3D5bce88129d5cd50006b28dae&foo=bar',
+      false)
+  ).toEqual({
+    url: 'https://foo.bar',
+    query: {
+      scene: 'id%3D5bce88129d5cd50006b28dae',
+      foo: 'bar',
+    }
+  })
 });

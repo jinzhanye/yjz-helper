@@ -25,6 +25,11 @@ export function parse(str, options = { decode: true }) {
   if (typeof str !== 'string') {
     return {}
   }
+  if (typeof options === 'boolean') {
+    options = {
+      decode: options
+    }
+  }
 
   str = str.trim()
     .replace(/^[?#&]/, '')
@@ -48,6 +53,12 @@ export function parse(str, options = { decode: true }) {
 }
 
 export function stringify(query, options = { encode: true }) {
+  if (typeof options === 'boolean') {
+    options = {
+      encode: options
+    }
+  }
+
   return Object.keys(query || {})
     .map((key) => {
       if (query[key] !== '' && query[key] !== undefined) {
@@ -65,6 +76,12 @@ export function stringify(query, options = { encode: true }) {
 }
 
 export function parseUrl(input, options = { decode: true }) {
+  if (typeof options === 'boolean') {
+    options = {
+      decode: options
+    }
+  }
+
   const url = removeHash(input)
     .split('?')[0] || ''
   const urlObject = urlParse(input)
@@ -77,6 +94,13 @@ export function parseUrl(input, options = { decode: true }) {
 }
 
 export function stringifyUrl(input = {}, options = { encode: true }) {
+  if (typeof options === 'boolean') {
+    options = {
+      encode: options
+    }
+  }
+
+
   const { url, query } = parseUrl(input.url)
   const hash = getHash(input.url)
 
