@@ -19,19 +19,33 @@ test('URI encode', () => {
   expect(queryString.stringify({ 'scene': 'id=AE86' }, false)).toBe('scene=id=AE86')
 });
 
-// *** 不支持数组参数 ***
-// test('no encode', () => {
-//   expect(queryString.stringify(
-//     { 'foo bar': 'baz faz' },
-//     { encode: false, }
-//   )).toBe('foo bar=baz faz')
-// });
+test('handle array value', () => {
+  expect(queryString.stringify(
+    {
+      abc: '123',
+      foo: ['bar', 'baz']
+    },
+  )).toBe('abc=123&foo=bar&foo=baz')
 
-// test('handle array value', () => {
-//   expect(queryString.stringify(
-//     {
-//       abc: 'abc',
-//       foo: ['bar', 'baz']
-//     },
-//   )).toBe('abc=abc&foo=bar&foo=baz')
-// });
+  expect(queryString.stringify(
+    {
+      abc: '123',
+      foo: ['bar', 'baz', '456']
+    },
+  )).toBe('abc=123&foo=bar&foo=baz&foo=456')
+
+  expect(queryString.stringify(
+    {
+      abc: '123',
+      foo: ['id=bar', 'baz', '456']
+    },
+  )).toBe('abc=123&foo=id%3Dbar&foo=baz&foo=456')
+
+  expect(queryString.stringify(
+    {
+      abc: '123',
+      foo: ['id=bar', 'baz', '456']
+    },
+    false
+  )).toBe('abc=123&foo=id=bar&foo=baz&foo=456')
+});

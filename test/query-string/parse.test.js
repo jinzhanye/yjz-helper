@@ -24,6 +24,17 @@ test('query strings normal', () => {
   //     foo: ['bar', 'baz']
   //   })
 
+  // expect(queryString.parse('&foo=bar&foo=baz&foo=bug'))
+  //   .toEqual({
+  //     foo: ['bar', 'baz', 'bug']
+  //   })
+
+  // expect(queryString.parse('&foo=bar&foo=baz&foo=bug&bar=123'))
+  //   .toEqual({
+  //     foo: ['bar', 'baz', 'bug'],
+  //     bar: '123'
+  //   })
+
   expect(queryString.parse('foo=bar&key=val'))
     .toEqual({
       foo: 'bar',

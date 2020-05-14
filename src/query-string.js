@@ -21,6 +21,33 @@ function getHash(url) {
   return hash
 }
 
+const getJoinText = (query = {}, keyName , options = { encode: true }) => {
+  return Object.keys(query)
+    .map((key) => {
+      const value = query[key]
+
+      if(keyName) {
+        key = keyName
+      }
+
+      if (value !== '' && value !== undefined) {
+        if(Array.isArray(value)){
+          return getJoinText(value, key, options)
+        }
+
+        if (!options.encode) {
+          return `${key}=${value}`
+        }
+
+        return `${key}=${encodeURIComponent(value)}`
+      }
+
+      return null
+    })
+    .filter((params) => { return params })
+    .join('&')
+}
+
 export function parse(str, options = { decode: true }) {
   if (typeof str !== 'string') {
     return {}
@@ -46,33 +73,35 @@ export function parse(str, options = { decode: true }) {
         value,
       ] = pair.split('=')
 
-      query[key] = options.decode ? decodeURIComponent(value) : value
+      const resultValue = options.decode ? decodeURIComponent(value) : value
+
+      if (query[key]) {
+        if (query[key] instanceof Array) {
+          query[key].push(resultValue)
+          return
+        }
+
+        query[key] = [query[key], resultValue]
+        return
+      }
+
+      query[key] = resultValue
     })
 
   return query
 }
 
-export function stringify(query, options = { encode: true }) {
+
+export function stringify(query = {}, options = { encode: true }) {
   if (typeof options === 'boolean') {
     options = {
       encode: options
     }
   }
 
-  return Object.keys(query || {})
-    .map((key) => {
-      if (query[key] !== '' && query[key] !== undefined) {
-        if (!options.encode) {
-          return `${key}=${query[key]}`
-        }
+  const result = getJoinText(query, '', options)
 
-        return `${key}=${encodeURIComponent(query[key])}`
-      }
-
-      return null
-    })
-    .filter((params) => { return params })
-    .join('&')
+  return result
 }
 
 export function parseUrl(input, options = { decode: true }) {
