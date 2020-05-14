@@ -6,7 +6,7 @@ import commonjs from '@rollup/plugin-commonjs'
 export default {
   input: 'src/**/*.js',
   output: {
-    file: 'lib/bundle.js',
+    file: 'lib/index.js',
     format: 'es',
   },
   plugins: [
