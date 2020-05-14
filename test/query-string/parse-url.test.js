@@ -7,22 +7,21 @@ test('handles strings with query string', () => {
       query: {}
     })
 
-  // *** 不支持数组参数 ***
-  // expect(queryString.parseUrl('https://foo.bar?foo=bar&foo=baz#top'))
-  //   .toEqual({
-  //     url: 'https://foo.bar',
-  //     query: {
-  //       foo: ['bar', 'baz']
-  //     }
-  //   })
+  expect(queryString.parseUrl('https://foo.bar?foo=bar&foo=baz#top'))
+    .toEqual({
+      url: 'https://foo.bar',
+      query: {
+        foo: ['bar', 'baz']
+      }
+    })
 
-  // expect(queryString.parseUrl('https://foo.bar?foo=bar&foo=baz'))
-  //   .toEqual({
-  //     url: 'https://foo.bar',
-  //     query: {
-  //       foo: ['bar', 'baz']
-  //     }
-  //   })
+  expect(queryString.parseUrl('https://foo.bar?foo=bar&foo=baz'))
+    .toEqual({
+      url: 'https://foo.bar',
+      query: {
+        foo: ['bar', 'baz']
+      }
+    })
 });
 
 test('handles strings not containing query string', () => {

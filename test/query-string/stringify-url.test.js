@@ -96,12 +96,12 @@ test('stringify URL from the result of `parseUrl` without query string', () => {
   expect(queryString.stringifyUrl(queryString.parseUrl(url))).toBe(url)
 });
 
-// *** 不支持数组参数 ***
-// test('stringify URL from the result of `parseUrl` with query string', () => {
-//   const url = 'https://foo.bar?foo=bar&foo=baz';
-//   expect(queryString.stringifyUrl(queryString.parseUrl(url))).toBe(url)
-// });
+test('stringify URL from the result of `parseUrl` with query string', () => {
+  const url = 'https://foo.bar?foo=bar&foo=baz';
+  expect(queryString.stringifyUrl(queryString.parseUrl(url))).toBe(url)
+});
 
+// 不支持空格转换
 // test('stringify URL from the result of `parseUrl` with query string that contains `=`', () => {
 //   const url = 'https://foo.bar?foo=bar=&foo=baz=';
 //   expect(
