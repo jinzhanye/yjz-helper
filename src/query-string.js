@@ -21,17 +21,17 @@ function getHash(url) {
   return hash
 }
 
-const getJoinText = (query = {}, keyName , options = { encode: true }) => {
+const getJoinText = (query = {}, keyName, options = { encode: true }) => {
   return Object.keys(query)
     .map((key) => {
       const value = query[key]
 
-      if(keyName) {
+      if (keyName) {
         key = keyName
       }
 
       if (value !== '' && value !== undefined) {
-        if(Array.isArray(value)){
+        if (Array.isArray(value)) {
           return getJoinText(value, key, options)
         }
 
@@ -76,7 +76,7 @@ export function parse(str, options = { decode: true }) {
       const resultValue = options.decode ? decodeURIComponent(value) : value
 
       if (query[key]) {
-        if (query[key] instanceof Array) {
+        if (Array.isArray(query[key])) {
           query[key].push(resultValue)
           return
         }
