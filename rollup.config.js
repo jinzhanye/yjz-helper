@@ -1,7 +1,8 @@
 import multi from '@rollup/plugin-multi-entry'
 import resolve from '@rollup/plugin-node-resolve'
-import babel from 'rollup-plugin-babel'
 import commonjs from '@rollup/plugin-commonjs'
+// Babel 转换
+// import babel from 'rollup-plugin-babel'
 
 export default {
   input: 'src/**/*.js',
@@ -15,14 +16,16 @@ export default {
     commonjs({
       include: 'node_modules/**',
     }),
-    babel({
-      exclude: 'node_modules/**',
-      runtimeHelpers: true,
-    }),
+    // Babel 转换
+    // babel({
+    //   exclude: 'node_modules/**',
+    //   runtimeHelpers: true,
+    // }),
   ],
   external: [
     'querystring',
     'url',
+    'lodash'
   ],
 }
 
