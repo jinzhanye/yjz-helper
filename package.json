@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "directories": {
-    "test": "test"
+    "test": "test",
+    "lib": "lib",
+    "doc": "doc"
   },
   "scripts": {
     "lint": "eslint --ext .js . --ignore-path .eslintignore --fix --cache",
